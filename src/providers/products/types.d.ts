@@ -45,10 +45,11 @@ interface ProductInventory {
 }
 
 export interface ProductInventoryData {
-  rocketInventory: ProductInventory[];
+  productInventory: ProductInventory[];
 }
 
 export interface ProductInventoryVars {
   skip?: number;
   take?: number;
+  name?: string;
 }

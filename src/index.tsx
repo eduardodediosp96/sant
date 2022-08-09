@@ -1,42 +1,15 @@
+import { ApolloProvider } from "@apollo/client";
 import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
+import ReactDOM from "react-dom";
+
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { offsetLimitPagination } from "@apollo/client/utilities";
+import { client } from "./config/apollo";
 
-const DEMO_API_URL = "https://demo.vendure.io/shop-api";
-const API_URL =
-  typeof process !== "undefined"
-    ? process.env.VENDURE_API_URL ?? DEMO_API_URL
-    : DEMO_API_URL;
-
-const client = new ApolloClient({
-  uri: "https://demo.vendure.io/shop-api",
-  cache: new InMemoryCache({
-    typePolicies: {
-      Query: {
-        fields: {
-          products: offsetLimitPagination(["skip", "take"]),
-        },
-      },
-    },
-  }),
-});
-
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <App />
     </ApolloProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
