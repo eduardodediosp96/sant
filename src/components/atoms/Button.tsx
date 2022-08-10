@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { palette, shadow } from "../../common/theme";
+import { palette } from "../../common/theme";
 
 const StyledButton = styled.button<{ variant: string; selected: boolean }>`
   background-color: ${({ variant }) =>
@@ -12,7 +12,7 @@ const StyledButton = styled.button<{ variant: string; selected: boolean }>`
   border: ${({ variant }) =>
     variant === "primary" ? "none" : `solid 1px ${palette.black}`};
   cursor: pointer;
-  box-shadow: ${({ selected }) => shadow[selected ? 2 : 0]};
+  box-shadow: ${({ selected, theme }) => theme.shadow[selected ? 2 : 0]};
 `;
 
 interface ButtonProps {

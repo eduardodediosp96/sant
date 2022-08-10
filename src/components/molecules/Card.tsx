@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { palette, shadow, spacing } from "../../common/theme";
+import { palette, spacing } from "../../common/theme";
 import { useNavigate } from "react-router-dom";
 import Link from "../atoms/Link";
 
@@ -11,7 +11,7 @@ const CardContainer = styled.div`
   border: 2px solid transparent;
   &:hover {
     border: ${`1px solid ${palette.main}`};
-    box-shadow: ${shadow[3]};
+    box-shadow: ${(props) => props.theme.shadow[3]};
   }
 `;
 
