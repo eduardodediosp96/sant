@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import HomeHeader from "../components/Home/HomeHeader";
 import { mockCategories } from "../_mock_/categories";
-import { Category } from "../components/Categories/Category.types";
+import { Category } from "../common/types/Category.types";
 import Card from "../common/components/Card";
 
 const CategoriesContainer = styled.div`

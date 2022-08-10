@@ -1,4 +1,4 @@
-import { Category } from "../components/Categories/Category.types";
+import { Category } from "../common/types/Category.types";
 
 export const mockCategories = [
     {
