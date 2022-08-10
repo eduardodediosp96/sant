@@ -1,16 +1,21 @@
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
+import styled from "styled-components";
+
+const Container = styled.div`
+  padding-bottom: 70px;
+`
 
 const Layout = () => {
   return (
-    <div>
+    <>
       <Navbar />
-      <div>
+      <Container>
         <Outlet />
-      </div>
+      </Container>
       <Footer />
-    </div>
+    </>
   );
 };
 
