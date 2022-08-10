@@ -1,33 +1,74 @@
+import { useState } from "react"
+import styled from "styled-components"
+import Button from "../../common/components/Button"
 import { Product } from "./Product.types"
+import Select from 'react-select'
+
+const ProductDetailsContainer = styled.div`
+  display: flex;
+  margin-top: 32px;
+`
+
+const ImageContainer = styled.div`
+width: 40%;
+  img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+  }
+`
+
+const DetailsContainer = styled.div`
+  width: 40%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+`
+
+const VariantsContainer = styled.div`
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 24px 0px;
+`
+
+const AddToCartContainer = styled.div`
+  display: flex;
+  gap: 16px;
+`
 
 interface ProductDetailsProps {
   product: Product
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
+
+  const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
+  const quantityOptions = Array.from(Array(10).keys()).map((option) => { return { label: option.toString(), value: option } });
+
   return (
-    <>
-      {/* <div>
-        <p>{product.name}</p>
-        <p>{product.description}</p>
-        <p>
-          {product.currency} {product.price}
-        </p>
-      </div>
-      <button >Add to cart</button>
-      <div>
-        <p>Features</p>
-        <p>{product.features}</p>
-      </div> */}
-      {/* <Typography>
-        <Title>In the box</Title>
-        {product.items.map((item, index) => (
-          <Paragraph key={index}>
-            {item.quantity}x {item.name}
-          </Paragraph>
-        ))}
-      </Typography> */}
-    </>
+    <ProductDetailsContainer>
+      <ImageContainer>
+        <img src={product.featuredAsset.preview}></img>
+      </ImageContainer>
+      <DetailsContainer>
+        <div>
+          <p>{selectedVariant.name}</p>
+          <p>{product.description}</p>
+          <p>
+            Price: <b>{selectedVariant.priceWithTax} {selectedVariant.currencyCode}</b>
+          </p>
+        </div>
+        <VariantsContainer>
+          {product.variants.map((variant) => <Button label={variant.name} variant="secondary" onClick={() => setSelectedVariant(variant)} selected={variant.id === selectedVariant.id} />)}
+        </VariantsContainer>
+        <AddToCartContainer>
+          <Select options={quantityOptions} placeholder="Quantity" />
+          <Button label="Add to cart" />
+        </AddToCartContainer>
+      </DetailsContainer>
+    </ProductDetailsContainer >
+
   )
 }
 
