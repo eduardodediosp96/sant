@@ -47,3 +47,20 @@ export const DETAILED_PRODUCT = gql`
     }
   }
 `;
+export const DETAILED_PRODUCT_SEARCHED = gql`
+  fragment DetailedProductSearched on SearchResult {
+    productId
+    sku
+    slug
+    productName
+    price {
+      ... on SinglePrice {
+        value
+      }
+    }
+    productAsset {
+      id
+      preview
+    }
+  }
+`;

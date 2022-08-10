@@ -1,55 +1,84 @@
+interface Variant {
+  id: string;
+  name: string;
+  priceWithTax: string;
+  currencyCode: string;
+  sku: string;
+  stockLevel: string;
+  price: number;
+  featuredAsset: {
+    id: string;
+    preview: string;
+  };
+}
+
 interface ProductInventory {
-  id: any;
-  name: any;
-  description: any;
+  id: string;
+  name: string;
+  description: string;
   collections: {
-    id: any;
-    slug: any;
-    name: any;
+    id: string;
+    slug: string;
+    name: string;
     breadcrumbs: {
-      id: any;
-      name: any;
-      slug: any;
+      id: string;
+      name: string;
+      slug: string;
     };
   };
   facetValues: {
     facet: {
-      id: any;
-      code: any;
-      name: any;
+      id: string;
+      code: string;
+      name: string;
     };
-    id: any;
-    code: any;
-    name: any;
+    id: string;
+    code: string;
+    name: string;
   };
   featuredAsset: {
-    id: any;
-    preview: any;
+    id: string;
+    preview: string;
   };
   assets: {
-    id: any;
-    preview: any;
+    id: string;
+    preview: string;
   };
-  variants: {
-    id: any;
-    name: any;
-    priceWithTax: any;
-    currencyCode: any;
-    sku: any;
-    stockLevel: any;
-    featuredAsset: {
-      id: any;
-      preview: any;
-    };
+  variants: [Variant];
+}
+interface ProductInventorySearched {
+  productId: string;
+  sku: string;
+  slug: string;
+  productName: string;
+  SinglePrice: {
+    value: string;
+  };
+  productAsset: {
+    id: string;
+    preview: string;
   };
 }
 
 export interface ProductInventoryData {
-  productInventory: ProductInventory[];
+  products: { items: ProductInventory[] };
+}
+
+export interface ProductInventorySearchedData {
+  search: { items: ProductInventorySearched[] };
+}
+export interface ProductSearchedBySlugData {
+  product: ProductInventory;
 }
 
 export interface ProductInventoryVars {
   skip?: number;
   take?: number;
   name?: string;
+}
+export interface ProductInventorySearchedVars {
+  collectionSlug?: string;
+}
+export interface ProductSearchedBySlugVars {
+  slug?: string;
 }

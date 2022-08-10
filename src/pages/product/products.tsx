@@ -1,14 +1,23 @@
 import { useMutation, useQuery } from "@apollo/client";
+import { useState } from "react";
 import {
   CUSTOMER_LOGIN,
   REGISTER_CUSTOMER_ACCOUNT,
 } from "../../providers/customerAuth/mutations";
-import { GET_ACTIVE_CUSTOMER } from "../../providers/customerAuth/queries";
-import { CustomerInventoryData } from "../../providers/customerAuth/types";
+import { FETCH_PRODUCTS } from "../../providers/products/queries";
+import {
+  ProductInventoryData,
+  ProductInventoryVars,
+} from "../../providers/products/types";
 
 function Products() {
-  const { loading, error, data } =
-    useQuery<CustomerInventoryData>(GET_ACTIVE_CUSTOMER);
+  const ITEMS_PER_PAGE = 8;
+  const [page, setPage] = useState(1);
+
+  const { loading, error, data, fetchMore } = useQuery<
+    ProductInventoryData,
+    ProductInventoryVars
+  >(FETCH_PRODUCTS, { variables: { take: ITEMS_PER_PAGE } });
 
   const [register, { error: registerError }] = useMutation(
     REGISTER_CUSTOMER_ACCOUNT
@@ -18,42 +27,36 @@ function Products() {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-  console.log("typed", { data });
+  console.log("que chucha fuee", { data });
   return (
     <>
-      <button
+      {/* <button
         onClick={() => {
-          register({
-            variables: {
-              customer: {
-                firstName: "asdasd",
-                emailAddress: "1234gaaaa@gmail.com",
-              },
-            },
-          });
+          setPage(page + 1);
         }}
       >
-        dadasd GAAAAAA
-      </button>
+        darme mas
+      </button> */}
       <button
         onClick={() => {
-          register({
-            variables: {
-              customer: {
-                firstName: "asdasd",
-                emailAddress: "1234gaaaa@gmail.com",
-              },
-            },
-          });
-          // fetchMore({
+          // register({
           //   variables: {
-          //     skip: 5,
+          //     customer: {
+          //       firstName: "asdasd",
+          //       emailAddress: "1234gaaaa@gmail.com",
+          //     },
           //   },
           // });
+          setPage(page + 1);
+          fetchMore({
+            variables: {
+              take: ITEMS_PER_PAGE * page,
+            },
+          });
           // console.log("typed", { data });
         }}
       >
-        dadasd GAAAAAA
+        dadasd GAAAAAA {page}
       </button>
       <button
         onClick={() => {
@@ -67,6 +70,13 @@ function Products() {
       >
         login GAAAAAA
       </button>
+      <div>
+        {data &&
+          data?.products &&
+          data?.products.items.map((item: any) => {
+            return <div>{item.name}</div>;
+          })}
+      </div>
     </>
   );
 }
