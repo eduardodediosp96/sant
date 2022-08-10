@@ -1,6 +1,4 @@
-import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import styled from "styled-components";
 import { CartProvider } from "./common/context/CartProvider";
 import Layout from "./layout/Layout";
 import Cart from "./pages/cart/cart";

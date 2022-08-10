@@ -2,8 +2,8 @@ import { useContext, useState } from "react"
 import styled from "styled-components"
 import Button from "../../common/components/Button"
 import { Product } from "../../common/types/Product.types"
-import Select from 'react-select'
 import { CartContext } from "../../common/context/CartProvider"
+import QuantityDropdown from "../../common/components/QuantityDropdown"
 
 const ProductDetailsContainer = styled.div`
   display: flex;
@@ -43,10 +43,9 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
-  const { addItem } = useContext(CartContext);
+  const { updateQuantity } = useContext(CartContext);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
   const [quantity, setQuantity] = useState(1);
-  const quantityOptions = Array.from(Array(10).keys()).map((option) => { return { label: option.toString(), value: option } });
 
   return (
     <ProductDetailsContainer>
@@ -62,11 +61,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           </p>
         </div>
         <VariantsContainer>
-          {product.variants.map((variant) => <Button label={variant.name} variant="secondary" onClick={() => setSelectedVariant(variant)} selected={variant.id === selectedVariant.id} />)}
+          {product.variants.map((variant) => <Button key={variant.id} label={variant.name} variant="secondary" onClick={() => setSelectedVariant(variant)} selected={variant.id === selectedVariant.id} />)}
         </VariantsContainer>
         <AddToCartContainer>
-          <Select value={{ label: quantity.toString(), value: quantity }} options={quantityOptions} placeholder="Quantity" onChange={(quantity) => setQuantity(quantity?.value || 1)} />
-          <Button label="Add to cart" onClick={() => addItem(selectedVariant, quantity)} />
+          <QuantityDropdown quantity={quantity} setQuantity={setQuantity} />
+          <Button label="Add to cart" onClick={() => updateQuantity(selectedVariant, quantity)} />
         </AddToCartContainer>
       </DetailsContainer>
     </ProductDetailsContainer >

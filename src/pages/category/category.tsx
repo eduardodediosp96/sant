@@ -18,7 +18,7 @@ function Category() {
     return <>
         <CategoryHeader category={category?.name || ''} />
         <ProductsContainer>
-            {mockProducts.map((product) => <Card imageUrl={product.featuredAsset.preview} slug={`${categorySlug.category}/${product.id}`} name={product.name} />)}
+            {mockProducts.map((product) => <Card key={product.id} imageUrl={product.featuredAsset.preview} slug={`${categorySlug.category}/${product.id}`} name={product.name} />)}
         </ProductsContainer>
     </>
 }
