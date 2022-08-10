@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { Product } from "../components/Products/Product.types";
+import { Product } from "../common/types/Product.types";
 
 export const mockProducts = [
     {

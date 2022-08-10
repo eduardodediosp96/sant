@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import styled from "styled-components"
 import Button from "../../common/components/Button"
-import { Product } from "./Product.types"
+import { Product } from "../../common/types/Product.types"
 import Select from 'react-select'
+import { CartContext } from "../../common/context/CartProvider"
 
 const ProductDetailsContainer = styled.div`
   display: flex;
@@ -42,8 +43,9 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
-
+  const { addItem } = useContext(CartContext);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
+  const [quantity, setQuantity] = useState(1);
   const quantityOptions = Array.from(Array(10).keys()).map((option) => { return { label: option.toString(), value: option } });
 
   return (
@@ -63,8 +65,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           {product.variants.map((variant) => <Button label={variant.name} variant="secondary" onClick={() => setSelectedVariant(variant)} selected={variant.id === selectedVariant.id} />)}
         </VariantsContainer>
         <AddToCartContainer>
-          <Select options={quantityOptions} placeholder="Quantity" />
-          <Button label="Add to cart" />
+          <Select value={{ label: quantity.toString(), value: quantity }} options={quantityOptions} placeholder="Quantity" onChange={(quantity) => setQuantity(quantity?.value || 1)} />
+          <Button label="Add to cart" onClick={() => addItem(selectedVariant, quantity)} />
         </AddToCartContainer>
       </DetailsContainer>
     </ProductDetailsContainer >
