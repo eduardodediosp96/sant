@@ -15,7 +15,7 @@ function Main() {
   return <div>
     <HomeHeader />
     <CategoriesContainer>
-      {mockCategories.map((category) => <Card imageUrl={category.featuredAsset.source} slug={category.slug} name={category.name} />)}
+      {mockCategories.map((category) => <Card key={category.id} imageUrl={category.featuredAsset.source} slug={category.slug} name={category.name} />)}
     </CategoriesContainer>
   </div>;
 }

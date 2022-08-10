@@ -12,6 +12,7 @@
     "@types/node": "^16.11.47",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
+    "@types/react-select": "^5.0.1",
     "apollo3-cache-persist": "^0.14.1",
     "graphql": "^16.5.0",
     "react": "^18.2.0",
