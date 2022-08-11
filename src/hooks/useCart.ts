@@ -63,11 +63,19 @@ export const useCart = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems]);
 
-  return [cartItems, addItem, removeItem, amount, itemsQuantity] as [
+  return [
+    cartItems,
+    addItem,
+    removeItem,
+    amount,
+    itemsQuantity,
+    () => setCartItems([]),
+  ] as [
     Array<{ item: Variant; quantity: number }>,
     (item: Variant, quantity: number) => void,
     (id: string) => void,
     number,
-    number
+    number,
+    () => void
   ];
 };

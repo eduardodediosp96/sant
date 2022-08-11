@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { CartContext } from "../../common/context/CartProvider";
 import { Cart as CartComponent } from "../../components/organism/Cart";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const CartWrapper = styled.div`
@@ -10,10 +11,23 @@ const CartWrapper = styled.div`
 `;
 
 function Cart() {
-  const { items, total, updateQuantity, removeItem } = useContext(CartContext);
+  const navigate = useNavigate();
+  const { items, total, updateQuantity, removeItem, clearCart } =
+    useContext(CartContext);
+
+  const checkout = () => {
+    console.info("Simulating the CHECKOUT");
+    console.table(items);
+    clearCart();
+    navigate("/");
+  };
+
   return (
     <CartWrapper>
-      <CartComponent {...{ items, total, updateQuantity, removeItem }} />
+      <CartComponent
+        checkout={checkout}
+        {...{ items, total, updateQuantity, removeItem }}
+      />
     </CartWrapper>
   );
 }
