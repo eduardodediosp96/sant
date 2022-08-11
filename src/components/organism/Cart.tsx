@@ -32,6 +32,7 @@ interface CardProps {
   total: number;
   updateQuantity: (item: Variant, quantity: number) => void;
   removeItem: (id: string) => void;
+  checkout: () => void;
 }
 
 export const Cart = ({
@@ -39,6 +40,7 @@ export const Cart = ({
   total,
   updateQuantity,
   removeItem,
+  checkout,
 }: CardProps) => {
   return (
     <CartContainer>
@@ -56,7 +58,7 @@ export const Cart = ({
         <b>{`$ ${(total / 100).toFixed(2)}`}</b>
       </TotalContainer>
       <ButtonContainer>
-        <Button label="CHECKOUT" />
+        <Button label="CHECKOUT" onClick={checkout} />
       </ButtonContainer>
     </CartContainer>
   );

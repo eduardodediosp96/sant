@@ -11,12 +11,6 @@ const CartLineContainer = styled.div`
   align-items: center;
 `;
 
-const ItemImage = styled.img`
-  width: 200px;
-  object-fit: cover;
-  height: 150px;
-`;
-
 const ItemDetails = styled.div`
   display: flex;
   flex-direction: column;
@@ -53,7 +47,6 @@ const CartLine = ({
   return (
     <CartLineContainer>
       <ItemContainer>
-        {/* <ItemImage src={image || ""}></ItemImage> */}
         <ItemDetails>
           <span>{item.name}</span>
           <span>${(parseFloat(item.priceWithTax) / 100).toFixed(2)}</span>

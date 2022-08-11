@@ -22,6 +22,7 @@ function Product() {
   >(GET_PRODUCT_BY_SLUG, {
     variables: { slug: productSlug.product || undefined },
   });
+  console.log({ data });
   return (
     <ProductContainer>
       <Link to={`/${productSlug.category}`}>Go back</Link>
