@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { palette, spacing } from "../../common/theme";
+import { palette, spacing } from "../theme";
 
 const HeaderContainer = styled.div`
   background-color: ${palette.black};
@@ -13,16 +13,16 @@ const HeaderContent = styled.div`
   font-size: 48px;
 `;
 
-interface CategoryHeaderProps {
-  category: string;
+interface PageHeaderProps {
+  title: string;
 }
 
-const CategoryHeader = ({ category }: CategoryHeaderProps) => {
+const PageHeader = ({ title }: PageHeaderProps) => {
   return (
     <HeaderContainer>
-      <HeaderContent>{category.toLocaleUpperCase()}</HeaderContent>
+      <HeaderContent>{title.toLocaleUpperCase()}</HeaderContent>
     </HeaderContainer>
   );
 };
 
-export default CategoryHeader;
+export default PageHeader;

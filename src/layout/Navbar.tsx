@@ -35,14 +35,14 @@ const Navbar = (props: {
           <Link to="/" white>
             Home
           </Link>
-          {!loading &&
+          {/* {!loading &&
             !error &&
             collections &&
             collections?.collections.items.map((collection: Collection) => (
               <Link key={collection.id as Key} to={`/${collection.slug}`} white>
                 {collection.name}
               </Link>
-            ))}
+            ))} */}
         </>
       </CategoriesContainer>
       <Link to="/cart" white>

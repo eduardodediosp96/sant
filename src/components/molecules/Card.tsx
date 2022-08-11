@@ -19,6 +19,7 @@ const CardImage = styled.div`
   img {
     height: ${spacing(12.5)};
     width: 100%;
+    object-fit: cover;
   }
 `;
 
@@ -30,6 +31,7 @@ const CardContent = styled.div`
   justify-content: center;
   padding: ${spacing(1)};
 `;
+
 const Title = styled.span`
   margin-bottom: ${spacing(0.75)};
 `;
@@ -45,7 +47,7 @@ function Card({ imageUrl, name, slug }: CardProps) {
   return (
     <CardContainer onClick={() => navigate(`/${slug}`)}>
       <CardImage>
-        <img src={imageUrl} alt=""></img>
+        {!!imageUrl && <img src={imageUrl} alt=""></img>}
       </CardImage>
       <CardContent>
         <Title>{name}</Title>

@@ -2,23 +2,19 @@ import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Card from "../../components/molecules/Card";
-import CategoryHeader from "../../common/components/CategoryHeader";
+import PageHeader from "../../common/components/PageHeader";
 import { FETCH_PRODUCTS_BY_COLLECTION } from "../../providers/products/queries";
 import {
   ProductInventorySearchedData,
   ProductInventorySearchedVars,
 } from "../../providers/products/types";
-import { spacing } from "../../common/theme";
+import theme, { spacing } from "../../common/theme";
+import CardContainer from "../../components/molecules/CardContainer";
 
 const CategoriesContainer = styled.div`
   height: 100%;
 `;
-const ProductsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  width: 60%;
-  margin: ${`${spacing(0.75)} auto`};
-`;
+
 function Category() {
   const categorySlug = useParams();
   const { loading, error, data } = useQuery<
@@ -30,8 +26,8 @@ function Category() {
 
   return (
     <CategoriesContainer>
-      <CategoryHeader category={categorySlug.category || ""} />
-      <ProductsContainer>
+      <PageHeader title={categorySlug.category || ""} />
+      <CardContainer>
         {!loading &&
           !error &&
           data &&
@@ -42,8 +38,8 @@ function Category() {
               name={product.productName}
             />
           ))}
-      </ProductsContainer>
-    </CategoriesContainer>
+      </CardContainer>
+    </CategoriesContainer >
   );
 }
 
