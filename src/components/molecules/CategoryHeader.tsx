@@ -1,15 +1,13 @@
 import styled from "styled-components";
-import { palette, spacing } from "../theme";
-
 const HeaderContainer = styled.div`
-  background-color: ${palette.black};
+  background-color: ${(props) => props.theme.palette.black};
   display: flex;
   justify-content: center;
 `;
 
 const HeaderContent = styled.div`
-  padding: ${spacing(2)};
-  color: ${palette.white};
+  padding: ${(props) => props.theme.spacing(2)};
+  color: ${(props) => props.theme.palette.white};
   font-size: 48px;
 `;
 

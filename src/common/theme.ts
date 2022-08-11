@@ -35,7 +35,11 @@ const theme = {
     desktopL: `(max-width: ${size.desktop})`,
   },
   spacing: (qty: number) => `${qty}rem`,
-  // fontSource: 'https://fonts.googleapis.com/css?family=Poppins:400,600',
+  sizes: {
+    navbar: { height: "3.1rem" },
+    footer: { height: "3.75rem" },
+  },
+  fontSource: "https://fonts.googleapis.com/css?family=Poppins:400,600",
   fontFamily: "Poppins, sans-serif",
 };
 

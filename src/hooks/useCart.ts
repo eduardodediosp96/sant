@@ -13,6 +13,7 @@ export const useCart = (
   defaultValue: Array<{ item: Variant; quantity: number }> | []
 ) => {
   const [amount, setAmount] = useState(0);
+  const [itemsQuantity, setItemsQuantity] = useState(0);
   const [cartItems, setCartItems] = useState(() => {
     return getStorageCartValue(defaultValue);
   });
@@ -33,10 +34,11 @@ export const useCart = (
     });
   };
 
-  const removeItem = (id: string) =>
+  const removeItem = (id: string) => {
     setCartItems((prevState: Array<{ item: Variant; quantity: number }>) => {
-      [...prevState].filter((x) => x.item.id !== id);
+      return [...prevState].filter((x) => x.item.id !== id);
     });
+  };
 
   const getTheTotalAmount = () =>
     cartItems.reduce(
@@ -46,15 +48,26 @@ export const useCart = (
       },
       0
     );
+  const getItemsQuantity = () =>
+    cartItems.reduce(
+      (qty: number, cartItem: { item: Variant; quantity: number }) => {
+        return (qty += cartItem.quantity);
+      },
+      0
+    );
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
     setAmount(getTheTotalAmount());
+    setItemsQuantity(getItemsQuantity());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems]);
 
-  return [cartItems, addItem, removeItem, amount] as [
+  return [cartItems, addItem, removeItem, amount, itemsQuantity] as [
     Array<{ item: Variant; quantity: number }>,
     (item: Variant, quantity: number) => void,
     (id: string) => void,
+    number,
     number
   ];
 };

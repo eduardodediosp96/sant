@@ -1,26 +1,39 @@
-import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
-import Footer from "./Footer";
 import styled from "styled-components";
 import { useQuery } from "@apollo/client";
 import { CollectionsData } from "../providers/collections/types";
 import { GET_COLLECTIONS } from "../providers/collections/queries";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import { useContext } from "react";
+import { CartContext } from "../common/context/CartProvider";
 
-const Container = styled.div`
-  padding-bottom: 70px;
+const LayoutWrapper = styled.div`
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+const Container = styled.div`
+  flex: 1 1 auto;
 `;
 
 const Layout = () => {
+  const { itemsQuantity } = useContext(CartContext);
   const { loading, error, data } = useQuery<CollectionsData>(GET_COLLECTIONS);
   return (
-    <>
-      <Navbar collections={data || null} loading={loading} error={error} />
+    <LayoutWrapper>
+      <Navbar
+        collections={data || null}
+        loading={loading}
+        error={error}
+        cartBadgeNumber={itemsQuantity}
+      />
       <Container>
         <Outlet />
       </Container>
       <Footer />
-    </>
+    </LayoutWrapper>
   );
 };
 

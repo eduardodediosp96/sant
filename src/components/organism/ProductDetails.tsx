@@ -1,25 +1,30 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import Button from "../atoms/Button";
-import { Product } from "../../common/types/Product.types";
 import { CartContext } from "../../common/context/CartProvider";
-import QuantityDropdown from "../../common/components/QuantityDropdown";
-import {
-  ProductInventory,
-  ProductSearchedBySlugData,
-} from "../../providers/products/types";
+import QuantityDropdown from "../atoms/QuantityDropdown";
+import { ProductSearchedBySlugData } from "../../providers/products/types";
+import { useNavigate } from "react-router-dom";
 
 const ProductDetailsContainer = styled.div`
   display: flex;
-  margin-top: 32px;
+  margin-top: ${({ theme }) => theme.spacing(2)};
+
+  @media ${({ theme }) => theme.mediaQueries.laptop} {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const ImageContainer = styled.div`
   width: 40%;
   img {
     width: 100%;
-    height: 350px;
+    height: ${({ theme }) => theme.spacing(37.5)};
     object-fit: cover;
+  }
+  @media ${({ theme }) => theme.mediaQueries.laptop} {
+    width: 100%;
   }
 `;
 
@@ -28,18 +33,25 @@ const DetailsContainer = styled.div`
   margin: auto;
   display: flex;
   flex-direction: column;
+  @media ${({ theme }) => theme.mediaQueries.laptop} {
+    width: auto;
+    align-items: center;
+  }
 `;
 
 const VariantsContainer = styled.div`
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(4, 1fr);
-  margin: 24px 0px;
+  display: flex;
+  gap: ${({ theme }) => theme.spacing(0.5)};
+  margin: ${({ theme }) => theme.spacing(1.5)} 0;
+  @media ${({ theme }) => theme.mediaQueries.laptop} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 const AddToCartContainer = styled.div`
   display: flex;
-  gap: 16px;
+  gap: ${({ theme }) => theme.spacing(1)};
 `;
 
 interface ProductDetailsProps {
@@ -51,20 +63,22 @@ const ProductDetails = ({ data }: ProductDetailsProps) => {
   const { updateQuantity } = useContext(CartContext);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
   const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
 
   return (
     <ProductDetailsContainer>
       <ImageContainer>
-        <img src={product.featuredAsset.preview}></img>
+        <img src={product.featuredAsset.preview} alt="" />
       </ImageContainer>
       <DetailsContainer>
         <div>
           <p>{selectedVariant.name}</p>
           <p>{product.description}</p>
           <p>
-            Price:{" "}
+            <span>Price: </span>
             <b>
-              {selectedVariant.priceWithTax} {selectedVariant.currencyCode}
+              {(parseFloat(selectedVariant.priceWithTax) / 100).toFixed(2)}
+              {selectedVariant.currencyCode}
             </b>
           </p>
         </div>
@@ -83,7 +97,10 @@ const ProductDetails = ({ data }: ProductDetailsProps) => {
           <QuantityDropdown quantity={quantity} setQuantity={setQuantity} />
           <Button
             label="Add to cart"
-            onClick={() => updateQuantity(selectedVariant, quantity)}
+            onClick={() => {
+              updateQuantity(selectedVariant, quantity);
+              navigate("/");
+            }}
           />
         </AddToCartContainer>
       </DetailsContainer>

@@ -1,15 +1,14 @@
 import styled from "styled-components";
 import Button from "../atoms/Button";
-import { palette } from "../../common/theme";
 
 const HeaderContainer = styled.div`
-  background-color: ${palette.black};
+  background-color: ${({ theme }) => theme.palette.black};
 `;
 
 const HeaderContent = styled.div`
   display: flex;
   flex-direction: column;
-  color: ${palette.white};
+  color: ${({ theme }) => theme.palette.white};
 `;
 
 const HomeHeader = () => {

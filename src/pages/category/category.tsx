@@ -1,15 +1,15 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import Card from "../../components/molecules/Card";
-import PageHeader from "../../common/components/PageHeader";
+import Card from "../../components/organism/Card";
+import PageHeader from "../../components/molecules/PageHeader";
 import { FETCH_PRODUCTS_BY_COLLECTION } from "../../providers/products/queries";
 import {
   ProductInventorySearchedData,
   ProductInventorySearchedVars,
 } from "../../providers/products/types";
-import theme, { spacing } from "../../common/theme";
 import CardContainer from "../../components/molecules/CardContainer";
+import { Key } from "react";
 
 const CategoriesContainer = styled.div`
   height: 100%;
@@ -33,13 +33,14 @@ function Category() {
           data &&
           data?.search?.items.map((product) => (
             <Card
-              imageUrl={product.productAsset.preview}
+              key={product.productId as Key}
+              imageUrl={product?.productAsset?.preview}
               slug={`${categorySlug.category}/${product.slug}`}
               name={product.productName}
             />
           ))}
       </CardContainer>
-    </CategoriesContainer >
+    </CategoriesContainer>
   );
 }
 

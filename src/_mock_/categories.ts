@@ -1,5 +1,4 @@
-import { Category } from "../common/types/Category.types";
-
+// @ts-nocheck
 export const mockCategories = [
   {
     id: "2",
@@ -97,4 +96,4 @@ export const mockCategories = [
         "https://demo.vendure.io/assets/preview/a2/thomas-serer-420833-unsplash__preview.jpg",
     },
   },
-] as Array<Category>;
+] as Array<any>;
