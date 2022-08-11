@@ -1,9 +1,11 @@
 import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 
-const LinkItem = styled(RouterLink)<{ white?: boolean | undefined }>`
-  color: ${({ white, theme }) => theme.palette[white ? "white" : "main"]};
-  text-decoration: none;
+const LinkContainer = styled.div<{ isWhite: boolean }>`
+  a {
+    color: ${({ isWhite, theme }) => theme.palette[isWhite ? "white" : "main"]};
+    text-decoration: none;
+  }
 `;
 
 interface LinkProps {
@@ -12,11 +14,13 @@ interface LinkProps {
   white?: boolean;
 }
 
-const Link = ({ to, children, white }: LinkProps) => {
+const Link = ({ to, children, white = false }: LinkProps) => {
   return (
-    <LinkItem to={to} white>
-      {children}
-    </LinkItem>
+    <LinkContainer isWhite={white}>
+      <RouterLink to={to}>
+        {children}
+      </RouterLink>
+    </LinkContainer>
   );
 };
 
